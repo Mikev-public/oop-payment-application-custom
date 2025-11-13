@@ -1,4 +1,4 @@
-package bank_account;
+package currencies;
 
 // snap niet helemaal hoe ik nu eee ENUM MOET
 
@@ -17,15 +17,10 @@ package bank_account;
 // }
 // }
 // }
-public class Currency {
+public abstract class Currency {
 
     private String name;
     private double amount;
-
-    public Currency(String name, double amount) {
-        this.name = name;
-        this.amount = amount;
-    }
 
     public String getName() {
         return this.name;
@@ -38,5 +33,9 @@ public class Currency {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    };
 }
 

@@ -1,6 +1,7 @@
 package bank_account;
 
 import converters.CurrencyConverter;
+import currencies.Currency;
 
 public class BankAccount {
     private final String owner;

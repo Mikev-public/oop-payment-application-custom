@@ -1,6 +1,6 @@
 package converters;
 
-import bank_account.Currency;
+import currencies.Currency;
 
 public interface CurrencyConverter {
     public Currency convertCurrencyToEuro(double amount);

@@ -1,16 +1,16 @@
 package converters;
 
-import bank_account.Currency;
+import currencies.ZlotyCurrency;
 
 public class PlnConverter implements CurrencyConverter {
     private final double conversionRateToEuro = 0.22;
 
     @Override
-    public Currency convertCurrencyToEuro(double amount) {
+    public ZlotyCurrency convertCurrencyToEuro(double amount) {
         Double convertedAmount = amount * conversionRateToEuro;
         convertedAmount = Math.round(convertedAmount * 100.0) / 100.0;
 
-        return new Currency("EURO", convertedAmount);
+        return new ZlotyCurrency(convertedAmount);
     }
 
 }

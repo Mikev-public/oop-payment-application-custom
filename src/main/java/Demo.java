@@ -1,9 +1,9 @@
-import bank_account.Currency;
 import bank_account.BankAccount;
 import converters.GbpConverter;
 import converters.JpyConverter;
 import converters.PlnConverter;
 import converters.UsdConverter;
+import currencies.Currency;
 
 public class Demo {
     private UsdConverter usdConverter = new UsdConverter();
