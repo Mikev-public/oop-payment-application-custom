@@ -36,7 +36,17 @@ public class BankAccount {
         return currency.getAmount();
     }
 
-    public boolean deposit(double amount, CurrencyConverter converter) {
+    public boolean deposit(double amount) {
+        if (amount > 0) {
+            double newAmount = currency.getAmount() + amount;
+            currency.setAmount(newAmount);
+            return true;
+        } else {
+            throw new InsufficientFundsException("Cannot deposit less than 0.01 EURO");
+        }
+    }
+
+    public boolean depositForeignCurrency(double amount, CurrencyConverter converter) {
         amount = converter.convertCurrencyToEuro(amount).getAmount();
         if (amount > 0) {
             double newAmount = currency.getAmount() + amount;
@@ -45,7 +55,6 @@ public class BankAccount {
         } else {
             throw new InsufficientFundsException("Cannot deposit less than 0.01 EURO");
         }
-
     }
 
     public void withdraw(double amount) {
@@ -76,10 +85,6 @@ public class BankAccount {
 
     public boolean accountHasCreditCard() {
         return creditCard != null;
-    }
-
-    public boolean accountHasDebitCard() {
-        return debitCard != null;
     }
 
 }

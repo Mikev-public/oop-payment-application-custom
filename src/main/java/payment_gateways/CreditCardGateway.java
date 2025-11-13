@@ -32,13 +32,13 @@ public class CreditCardGateway extends PaymentGateway {
     public void transferIncomingEuroFunds(BankAccount companyBankAccount,
             BankAccount customerBankAccount, double amount) {
         customerBankAccount.withdraw(amount);
-        companyBankAccount.deposit(amount, null);
+        companyBankAccount.deposit(amount);
     }
 
     @Override
     public void transferIncomingNonEuroFunds(BankAccount companyBankAccount,
             BankAccount customerBankAccount, double amount, CurrencyConverter converter) {
         customerBankAccount.withdraw(amount);
-        companyBankAccount.deposit(amount, converter);
+        companyBankAccount.depositForeignCurrency(amount, converter);
     }
 }
