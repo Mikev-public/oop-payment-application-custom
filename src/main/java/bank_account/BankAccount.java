@@ -1,17 +1,27 @@
 package bank_account;
 
-public abstract class BankAccount {
+import converters.CurrencyConverter;
+
+public class BankAccount {
     private final String owner;
     private Currency currency;
 
-    // WORK ON IMPLEMENTING THE DEBIT/CREDITCARD features that we have gateways that use these fields, also make creditcard optional
+    // CURRENCIES WE SUPPORT
+    // EURO
+    // POUND
+    // DOLLAR
+    // ZLOTY
+    // YEN
+
+    // WORK ON IMPLEMENTING THE DEBIT/CREDITCARD features that we have gateways that use these
+    // fields, also make creditcard optional
     private DebitCard debitCard;
     private CreditCard creditCard;
 
-    public BankAccount(String owner, Currency currency, DebitCard debitCard) {
+    public BankAccount(String owner, Currency currency) {
         this.owner = owner;
         this.currency = currency;
-        this.debitCard = debitCard;
+        this.debitCard = new DebitCard();
     }
 
     public String getOwner() {
@@ -26,26 +36,50 @@ public abstract class BankAccount {
         return currency.getAmount();
     }
 
-    // public abstract void deposit(double value);
-    public void deposit(double value) {
-        if (value > 0) {
-            double newAmount = currency.getAmount() + value;
+    public boolean deposit(double amount, CurrencyConverter converter) {
+        amount = converter.convertCurrencyToEuro(amount).getAmount();
+        if (amount > 0) {
+            double newAmount = currency.getAmount() + amount;
             currency.setAmount(newAmount);
+            return true;
+        } else {
+            throw new InsufficientFundsException("Cannot deposit less than 0.01 EURO");
         }
+
     }
 
-    // public abstract void withdraw(double value);
-    public boolean withdraw(double value) {
-        if (value > 0 && value <= currency.getAmount()) {
-            double newAmount = currency.getAmount() - value;
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= currency.getAmount()) {
+            double newAmount = currency.getAmount() - amount;
             currency.setAmount(newAmount);
+        } else {
+            throw new InsufficientFundsException("Insufficient funds");
         }
-        return false;
     }
 
     public String bankAccountInfo() {
         return owner + " currently has " + currency.getAmount() + " " + currency.getName()
                 + " In their wallet";
+    }
+
+    public void createCreditcard() {
+        creditCard = new CreditCard();
+    }
+
+    public DebitCard getDebitCard() {
+        return debitCard;
+    }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public boolean accountHasCreditCard() {
+        return creditCard != null;
+    }
+
+    public boolean accountHasDebitCard() {
+        return debitCard != null;
     }
 
 }

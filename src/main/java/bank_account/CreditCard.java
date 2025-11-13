@@ -2,7 +2,7 @@ package bank_account;
 
 import java.util.Random;
 
-public class CreditCard {
+public class CreditCard implements Card {
     private final int cardNumber;
     private final int cvv;
 
@@ -16,15 +16,16 @@ public class CreditCard {
         this.cvv = 100 + random.nextInt(900);
     }
 
-    public String creditCardDetails() {
+    public String getCardDetails() {
         return "CreditCard info : " + "cardNumber=" + cardNumber + ", cvv=" + cvv;
     }
 
-    public String getCardNumber() {
-        return String.valueOf(cardNumber);
+    public int getCardNumber() {
+        return cardNumber;
     }
 
-    public boolean isCvvCorrect(int cvv) {
+    @Override
+    public boolean validateSecurityCode(int cvv) {
         return this.cvv == cvv;
     }
 }

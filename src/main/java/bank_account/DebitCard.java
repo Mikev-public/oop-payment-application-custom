@@ -2,7 +2,7 @@ package bank_account;
 
 import java.util.Random;
 
-public class DebitCard {
+public class DebitCard implements Card {
     private final int cardNumber;
     private final int pinCode;
 
@@ -17,15 +17,16 @@ public class DebitCard {
 
     }
 
-    public String debitCardDetails() {
+    public String getCardDetails() {
         return "CreditCard info : " + "cardNumber=" + cardNumber + ", pinCode=" + pinCode;
     }
 
-    public String getCardNumber() {
-        return String.valueOf(cardNumber);
+    public int getCardNumber() {
+        return cardNumber;
     }
 
-    public Boolean isPinCodeCorrect(int pinCode) {
+    @Override
+    public boolean validateSecurityCode(int pinCode) {
         return this.pinCode == pinCode;
     }
 }
